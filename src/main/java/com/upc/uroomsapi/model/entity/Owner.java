@@ -1,8 +1,21 @@
 package com.upc.uroomsapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
 public class Owner extends User {
     private long dni;
-    private long ruc;
+
+    //UN "arrendador" puede tener MUCHOS "posts"
+    @JsonBackReference
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Post> posts = new HashSet<>();
 
     public Owner() {}
 
@@ -13,10 +26,10 @@ public class Owner extends User {
         this.dni = dni;
     }
 
-    public long getRuc() {
-        return ruc;
+    public Set<Post> getPosts() {
+        return posts;
     }
-    public void setRuc(long ruc) {
-        this.ruc = ruc;
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
 }

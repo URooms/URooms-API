@@ -2,29 +2,47 @@ package com.upc.uroomsapi.model.entity;
 
 import com.upc.uroomsapi.model.enums.PropertyType;
 
-import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Properties")
 public class Property {
-    private double price;
-    private String location;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-increment
+    @Column(name = "property_id")
+    private Long propertyId;
+    private double pricePerMonth;
+    private String address;
     private String dimensions;
+    @Enumerated(EnumType.STRING)
     private PropertyType type;
-    private List<String> comforts;
+    private boolean isAvailable;
+
+    //UNA "post" tiene UN "propiedad"
+    @OneToOne(mappedBy = "property")
+    private Post post;
 
     public Property() {}
 
-    public double getPrice() {
-        return price;
+    public Long getPropertyId() {
+        return propertyId;
     }
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPropertyId(Long propertyId) {
+        this.propertyId = propertyId;
     }
 
-    public String getLocation() {
-        return location;
+    public double getPricePerMonth() {
+        return pricePerMonth;
     }
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPricePerMonth(double pricePerMonth) {
+        this.pricePerMonth = pricePerMonth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDimensions() {
@@ -41,10 +59,17 @@ public class Property {
         this.type = type;
     }
 
-    public List<String> getComforts() {
-        return comforts;
+    public boolean isAvailable() {
+        return isAvailable;
     }
-    public void setComforts(List<String> comforts) {
-        this.comforts = comforts;
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

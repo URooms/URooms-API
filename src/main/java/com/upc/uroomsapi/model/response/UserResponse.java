@@ -1,28 +1,21 @@
-package com.upc.uroomsapi.model.entity;
+package com.upc.uroomsapi.model.response;
 
 import com.upc.uroomsapi.model.enums.Gender;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "Users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-increment
-    private Long userId;
-    private String surname;
-    private String firstname;
-    private String username;
-    private String email;
-    private String password;
-    private Date birthDate;
-    private long phoneNumber;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+public class UserResponse {
+    protected Long userId;
+    protected String surname;
+    protected String firstname;
+    protected String username;
+    protected String email;
+    protected String password;
+    protected Date birthDate;
+    protected long phoneNumber;
+    protected Gender gender;
 
-    public User() {}
+    public UserResponse() {}
 
     public Long getUserId() {
         return userId;
