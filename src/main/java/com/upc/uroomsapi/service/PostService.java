@@ -1,11 +1,11 @@
 package com.upc.uroomsapi.service;
 
 import com.upc.uroomsapi.exception.ResourceNotFoundException;
-import com.upc.uroomsapi.model.entity.Owner;
 import com.upc.uroomsapi.model.entity.Post;
 import com.upc.uroomsapi.model.request.PostRequest;
 import com.upc.uroomsapi.model.response.MessageResponse;
 import com.upc.uroomsapi.model.response.PostResponse;
+import com.upc.uroomsapi.repository.OwnerRepository;
 import com.upc.uroomsapi.repository.PostRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +22,19 @@ public class PostService {
 
     //inyecta los métodos CRUD del repository
     @Autowired
-    private PostRepository repo;
+    private PostRepository postRepo;
+
+    //inyecta los métodos CRUD del repository
+    @Autowired
+    private OwnerRepository ownerRepo;
+
 
     /**
      * Obtiene el listado de publicaciones
      * @return Lista de publicaciones
      */
     public List<PostResponse> getAllPosts() {
-        var postList = repo.findAll(); //listado
+        var postList = postRepo.findAll(); //listado
 
         return postList.stream()
                 .map(post -> modelMapper.map(post, PostResponse.class)) //lambda que mapea cada item al dto (response)
@@ -42,7 +47,7 @@ public class PostService {
      * @return El Post
      */
     public PostResponse getPostById(long postId) {
-        var post = repo.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "ID", postId));
+        var post = postRepo.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "ID", postId));
         return modelMapper.map(post, PostResponse.class);
     }
 
@@ -51,18 +56,15 @@ public class PostService {
      * @param request Data a crear
      * @return Un mensaje
      */
-    public MessageResponse createPost(PostRequest request) {
-        //Post post = modelMapper.map(request, Post.class); //mapea el dto (request) a la entidad
+    public MessageResponse createPost(long ownerId, PostRequest request) {
+        var post = modelMapper.map(request, Post.class); //mapea el dto (request) a la entidad (desde el dto se obtiene la entidad)
 
-        var owner = new Owner();
-        owner.setUserId(request.getOwnerId());
+        //busca el usuario donde se creara el post
+        var owner = ownerRepo.findById(ownerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Owner", "ID", ownerId));
 
-        var post = new Post();
-        post.setTitle(request.getTitle());
-        post.setDescription(request.getDescription());
-        post.setOwner(owner);
-
-        repo.save(post); //crea el post
+        post.setOwner(owner); //asigna el usuario buscado
+        postRepo.save(post); //crea el post
 
         return new MessageResponse("Post creado correctamente");
     }

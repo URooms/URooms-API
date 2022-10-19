@@ -1,5 +1,7 @@
 package com.upc.uroomsapi.model.request;
 
+import com.upc.uroomsapi.model.enums.PropertyType;
+
 import javax.validation.constraints.NotEmpty;
 
 public class PostRequest {
@@ -7,8 +9,10 @@ public class PostRequest {
     private String title;
     @NotEmpty(message = "La descripción es requerida")
     private String description;
-    //private Property property;
-    private long ownerId;
+    private double pricePerMonth;
+    private String propertyAddress;
+    private String propertyDimensions;
+    private PropertyType propertyType;
 
     public PostRequest() {}
 
@@ -26,17 +30,31 @@ public class PostRequest {
         this.description = description;
     }
 
-//    public Property getProperty() {
-//        return property;
-//    }
-//    public void setProperty(Property property) {
-//        this.property = property;
-//    }
-
-    public long getOwnerId() {
-        return ownerId;
+    public double getPricePerMonth() {
+        return pricePerMonth;
     }
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
+    public void setPricePerMonth(double pricePerMonth) {
+        this.pricePerMonth = pricePerMonth;
+    }
+
+    public String getPropertyAddress() {
+        return propertyAddress;
+    }
+    public void setPropertyAddress(String propertyAddress) {
+        this.propertyAddress = propertyAddress;
+    }
+
+    public String getPropertyDimensions() {
+        return propertyDimensions;
+    }
+    public void setPropertyDimensions(String propertyDimensions) {
+        this.propertyDimensions = propertyDimensions;
+    }
+
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
     }
 }

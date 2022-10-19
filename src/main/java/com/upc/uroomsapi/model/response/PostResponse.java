@@ -1,9 +1,6 @@
 package com.upc.uroomsapi.model.response;
 
-import com.upc.uroomsapi.model.entity.Owner;
-import com.upc.uroomsapi.model.entity.Review;
-
-import java.util.Set;
+import com.upc.uroomsapi.model.enums.PropertyType;
 
 public class PostResponse {
     private Long postId;
@@ -12,9 +9,12 @@ public class PostResponse {
     private int photos;
     private int videos;
     private float averageRating;
-    //private Property property;
-    private Set<Review> reviews;
-    private Owner owner;
+    private double pricePerMonth;
+    private String propertyAddress;
+    private String propertyDimensions;
+    private PropertyType propertyType;
+    private boolean isAvailable;
+//    private Owner owner;
 
     public PostResponse() {}
 
@@ -60,24 +60,46 @@ public class PostResponse {
         this.averageRating = averageRating;
     }
 
-//    public Property getProperty() {
-//        return property;
-//    }
-//    public void setProperty(Property property) {
-//        this.property = property;
-//    }
-
-    public Set<Review> getReviews() {
-        return reviews;
+    public double getPricePerMonth() {
+        return pricePerMonth;
     }
-    public void setReviews(Set<Review> reviews) {
-        this.reviews = reviews;
+    public void setPricePerMonth(double pricePerMonth) {
+        this.pricePerMonth = pricePerMonth;
     }
 
-    public Owner getOwner() {
-        return owner;
+    public String getPropertyAddress() {
+        return propertyAddress;
     }
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setPropertyAddress(String propertyAddress) {
+        this.propertyAddress = propertyAddress;
     }
+
+    public String getPropertyDimensions() {
+        return propertyDimensions;
+    }
+    public void setPropertyDimensions(String propertyDimensions) {
+        this.propertyDimensions = propertyDimensions;
+    }
+
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+//
+//    public Owner getOwner() {
+//        return owner;
+//    }
+//    public void setOwner(Owner owner) {
+//        this.owner = owner;
+//    }
 }

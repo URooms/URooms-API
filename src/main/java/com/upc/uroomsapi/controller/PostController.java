@@ -50,9 +50,12 @@ public class PostController {
             @ApiResponse(responseCode = "201", description = "Objeto creado"),
             @ApiResponse(responseCode = "400", description = "Error al crear")
     })
-    @PostMapping("/create")
-    public ResponseEntity<MessageResponse> createPost(@Valid @RequestBody PostRequest request) {
-        var msg = service.createPost(request);
+    @PostMapping("/create/{ownerId}")
+    public ResponseEntity<MessageResponse> createPost(
+            @PathVariable(value = "ownerId") Long ownerId,
+            @Valid @RequestBody PostRequest request
+    ) {
+        var msg = service.createPost(ownerId, request);
         return new ResponseEntity<>(msg, HttpStatus.CREATED);
     }
 }

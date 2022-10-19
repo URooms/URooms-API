@@ -1,7 +1,7 @@
 package com.upc.uroomsapi.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.upc.uroomsapi.model.enums.PropertyType;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,11 +18,12 @@ public class Post {
     private int photos;
     private int videos;
     private float averageRating;
-
-    //UN "post" tiene una "propiedad"
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "property_id", referencedColumnName = "property_id")
-    private Property property;
+    private double pricePerMonth;
+    private String propertyAddress;
+    private String propertyDimensions;
+    @Enumerated(EnumType.STRING)
+    private PropertyType propertyType;
+    private boolean isAvailable;
 
     //UN "post" puede tener MUCHOS "reviews"
     @JsonBackReference
@@ -31,7 +32,6 @@ public class Post {
 
     //MUCHOS "posts" van a estar en UN "arrendador"
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     @JoinColumn(name = "ownerId", nullable = false)
     private Owner owner;
 
@@ -79,13 +79,6 @@ public class Post {
         this.averageRating = averageRating;
     }
 
-    public Property getProperty() {
-        return property;
-    }
-    public void setProperty(Property property) {
-        this.property = property;
-    }
-
     public Set<Review> getReviews() {
         return reviews;
     }
@@ -98,5 +91,40 @@ public class Post {
     }
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public double getPricePerMonth() {
+        return pricePerMonth;
+    }
+    public void setPricePerMonth(double pricePerMonth) {
+        this.pricePerMonth = pricePerMonth;
+    }
+
+    public String getPropertyAddress() {
+        return propertyAddress;
+    }
+    public void setPropertyAddress(String propertyAddress) {
+        this.propertyAddress = propertyAddress;
+    }
+
+    public String getPropertyDimensions() {
+        return propertyDimensions;
+    }
+    public void setPropertyDimensions(String propertyDimensions) {
+        this.propertyDimensions = propertyDimensions;
+    }
+
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
