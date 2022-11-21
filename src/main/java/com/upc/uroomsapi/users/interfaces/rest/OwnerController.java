@@ -34,7 +34,7 @@ public class OwnerController {
     }
 
     //GET
-    @Operation(summary = "Obtiene el detalle de un arrendador")
+    @Operation(summary = "Obtiene la información de un arrendador según su Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "El objeto no existe", content = @Content)
     })
@@ -45,7 +45,7 @@ public class OwnerController {
     }
 
     //POST
-    @Operation(summary = "Crea un arrendador")
+    @Operation(summary = "Crea un nuevo usuario  arrendador")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Objeto creado"),
             @ApiResponse(responseCode = "400", description = "Error al crear")

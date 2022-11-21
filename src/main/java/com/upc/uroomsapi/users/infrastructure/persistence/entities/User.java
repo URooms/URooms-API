@@ -1,6 +1,9 @@
 package com.upc.uroomsapi.users.infrastructure.persistence.entities;
 
 import com.upc.uroomsapi.users.domain.aggregates.Gender;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.DniValue;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.EmailValue;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.PersonalInfoValue;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,12 +15,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-increment
     private Long userId;
-    private String surname;
-    private String firstname;
     private String username;
-    private String email;
+    @Embedded
+    private EmailValue email;
     private String password;
-    private Date birthDate;
+    @Embedded
+    private PersonalInfoValue personalInfo;
+    @Embedded
+    private DniValue dni;
     private long phoneNumber;
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -31,20 +36,6 @@ public class User {
         this.userId = userId;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -52,10 +43,10 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
+    public EmailValue getEmail() {
         return email;
     }
-    public void setEmail(String email) {
+    public void setEmail(EmailValue email) {
         this.email = email;
     }
 
@@ -66,18 +57,25 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public long getPhoneNumber() {
         return phoneNumber;
     }
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public PersonalInfoValue getPersonalInfo() {
+        return personalInfo;
+    }
+    public void setPersonalInfo(PersonalInfoValue personalInfo) {
+        this.personalInfo = personalInfo;
+    }
+
+    public DniValue getDni() {
+        return dni;
+    }
+    public void setDni(DniValue dni) {
+        this.dni = dni;
     }
 
     public Gender getGender() {

@@ -35,7 +35,7 @@ public class PostController {
     private GetPostsByOwnerIdHandler getPostsByOwnerIdHandler;
 
     //GET
-    @Operation(summary = "Obtiene la lista de posts creados")
+    @Operation(summary = "Obtiene la lista de publicaciones creadas por los arrendadores")
     @GetMapping("/list")
     public ResponseEntity<List<PostResponse>> listPosts() {
         //var posts = service.getAllPosts();
@@ -45,7 +45,7 @@ public class PostController {
     }
 
     //GET
-    @Operation(summary = "Obtiene la lista de posts creados por arrendador")
+    @Operation(summary = "Obtiene la lista de publicaciones creadas por un arrendador de acuerdo a su Id")
     @GetMapping("/list/{ownerId}")
     public ResponseEntity<List<PostResponse>> listPostsByOwnerId(
             @PathVariable(value = "ownerId") Long ownerId
@@ -56,7 +56,7 @@ public class PostController {
     }
 
     //POST
-    @Operation(summary = "Crea un post")
+    @Operation(summary = "Crea una nueva publicación")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Objeto creado"),
             @ApiResponse(responseCode = "400", description = "Error al crear")

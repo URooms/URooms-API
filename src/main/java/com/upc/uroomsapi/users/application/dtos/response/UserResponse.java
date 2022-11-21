@@ -1,17 +1,17 @@
 package com.upc.uroomsapi.users.application.dtos.response;
 
 import com.upc.uroomsapi.users.domain.aggregates.Gender;
-
-import java.util.Date;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.DniValue;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.EmailValue;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.PersonalInfoValue;
 
 public class UserResponse {
     protected Long userId;
-    protected String surname;
-    protected String firstname;
+    protected PersonalInfoValue personalInfo;
+    protected EmailValue email;
+    protected DniValue dni;
     protected String username;
-    protected String email;
     protected String password;
-    protected Date birthDate;
     protected long phoneNumber;
     protected Gender gender;
 
@@ -24,18 +24,11 @@ public class UserResponse {
         this.userId = userId;
     }
 
-    public String getSurname() {
-        return surname;
+    public PersonalInfoValue getPersonalInfo() {
+        return personalInfo;
     }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setPersonalInfo(PersonalInfoValue personalInfo) {
+        this.personalInfo = personalInfo;
     }
 
     public String getUsername() {
@@ -45,11 +38,18 @@ public class UserResponse {
         this.username = username;
     }
 
-    public String getEmail() {
+    public EmailValue getEmail() {
         return email;
     }
-    public void setEmail(String email) {
+    public void setEmail(EmailValue email) {
         this.email = email;
+    }
+
+    public DniValue getDni() {
+        return dni;
+    }
+    public void setDni(DniValue dni) {
+        this.dni = dni;
     }
 
     public String getPassword() {
@@ -57,13 +57,6 @@ public class UserResponse {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
     }
 
     public long getPhoneNumber() {

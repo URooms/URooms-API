@@ -2,8 +2,10 @@ package com.upc.uroomsapi.users.infrastructure.persistence.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.upc.uroomsapi.publications.infrastructure.persistence.entities.Review;
+import com.upc.uroomsapi.users.infrastructure.persistence.values.InstitutionValue;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
@@ -11,7 +13,8 @@ import java.util.Set;
 
 @Entity
 public class Student extends User {
-    private String universityName;
+    @Embedded
+    private InstitutionValue institution;
 
     //UN "estudiante" puede tener MUCHOS "reviews"
     @JsonBackReference
@@ -20,11 +23,11 @@ public class Student extends User {
 
     public Student() {}
 
-    public String getUniversityName() {
-        return universityName;
+    public InstitutionValue getInstitution() {
+        return institution;
     }
-    public void setUniversityName(String universityName) {
-        this.universityName = universityName;
+    public void setInstitution(InstitutionValue institution) {
+        this.institution = institution;
     }
 
     public Set<Review> getReviews() {

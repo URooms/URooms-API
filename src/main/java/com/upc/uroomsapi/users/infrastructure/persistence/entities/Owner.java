@@ -11,8 +11,6 @@ import java.util.Set;
 
 @Entity
 public class Owner extends User {
-    private long dni;
-
     //UN "arrendador" puede tener MUCHOS "posts"
     @JsonBackReference
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -20,12 +18,6 @@ public class Owner extends User {
 
     public Owner() {}
 
-    public long getDni() {
-        return dni;
-    }
-    public void setDni(long dni) {
-        this.dni = dni;
-    }
 
     public Set<Post> getPosts() {
         return posts;
