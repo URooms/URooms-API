@@ -3,13 +3,13 @@ package com.upc.uroomsapi.publications.infrastructure.persistence.values;
 import javax.persistence.Embeddable;
 
 @Embeddable //to work with value objects
-public class AddresValue {
+public class AddressValue {
     private String district;
     private String street;
     private String department;
     private String zipCode;
 
-    public AddresValue() {}
+    public AddressValue() {}
 
     public String getDistrict() {
         return district;

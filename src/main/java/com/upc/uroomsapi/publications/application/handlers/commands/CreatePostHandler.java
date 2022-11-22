@@ -40,6 +40,7 @@ public class CreatePostHandler {
         );
         new PostCreatedHandler().handle(event);
 
-        return postRepository.save(postToCreate);
+        //return postRepository.save(postToCreate);
+        return postCreated;
     }
 }

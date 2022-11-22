@@ -1,8 +1,14 @@
 package com.upc.uroomsapi.users.interfaces.rest;
 
+import com.upc.uroomsapi.publications.application.messages.queries.GetAllPosts;
+import com.upc.uroomsapi.publications.application.messages.queries.GetPostsByOwnerId;
 import com.upc.uroomsapi.shared.interfaces.rest.MessageResponse;
 import com.upc.uroomsapi.users.application.dtos.request.OwnerRequest;
 import com.upc.uroomsapi.users.application.dtos.response.OwnerResponse;
+import com.upc.uroomsapi.users.application.handlers.queries.GetAllOwnersHandler;
+import com.upc.uroomsapi.users.application.handlers.queries.GetOwnerByIdHandler;
+import com.upc.uroomsapi.users.application.messages.queries.GetAllOwners;
+import com.upc.uroomsapi.users.application.messages.queries.GetOwnerById;
 import com.upc.uroomsapi.users.application.services.OwnerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,13 +29,20 @@ import java.util.List;
 @Tag(name = "Owner")
 public class OwnerController {
     @Autowired
-    OwnerService service;
+    private OwnerService service;
+
+    @Autowired
+    private GetAllOwnersHandler getAllOwnersHandler;
+
+    @Autowired
+    private GetOwnerByIdHandler getOwnerByIdHandler;
 
     //GET
     @Operation(summary = "Obtiene la lista de arrendadores creados")
     @GetMapping("/list")
     public ResponseEntity<List<OwnerResponse>> listWorkspace() {
-        var owners = service.getAllOwners();
+        var query = new GetAllOwners();
+        var owners = getAllOwnersHandler.execute(query);
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
 
@@ -40,8 +53,9 @@ public class OwnerController {
     })
     @GetMapping("/detail/{id}")
     public ResponseEntity<OwnerResponse> getOwnerById(@PathVariable("id") Long id) {
-        var response = service.getOwnerById(id);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        var query = new GetOwnerById(id);
+        var owner = getOwnerByIdHandler.execute(query);
+        return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
     //POST

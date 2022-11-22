@@ -1,20 +1,18 @@
 package com.upc.uroomsapi.publications.application.dtos.response;
 
 import com.upc.uroomsapi.publications.domain.aggregates.PropertyType;
+import com.upc.uroomsapi.publications.infrastructure.persistence.values.AddressValue;
 
 public class PostResponse {
     private Long postId;
     private String title;
     private String description;
-    private int photos;
-    private int videos;
     private float averageRating;
     private double pricePerMonth;
-    private String propertyAddress;
+    private AddressValue propertyAddress;
     private String propertyDimensions;
     private PropertyType propertyType;
     private boolean isAvailable;
-//    private Owner owner;
 
     public PostResponse() {}
 
@@ -39,20 +37,6 @@ public class PostResponse {
         this.description = description;
     }
 
-    public int getPhotos() {
-        return photos;
-    }
-    public void setPhotos(int photos) {
-        this.photos = photos;
-    }
-
-    public int getVideos() {
-        return videos;
-    }
-    public void setVideos(int videos) {
-        this.videos = videos;
-    }
-
     public float getAverageRating() {
         return averageRating;
     }
@@ -67,10 +51,10 @@ public class PostResponse {
         this.pricePerMonth = pricePerMonth;
     }
 
-    public String getPropertyAddress() {
+    public AddressValue getPropertyAddress() {
         return propertyAddress;
     }
-    public void setPropertyAddress(String propertyAddress) {
+    public void setPropertyAddress(AddressValue propertyAddress) {
         this.propertyAddress = propertyAddress;
     }
 

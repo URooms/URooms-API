@@ -3,6 +3,7 @@ package com.upc.uroomsapi.publications.application.handlers.queries;
 import com.upc.uroomsapi.publications.application.dtos.response.PostResponse;
 import com.upc.uroomsapi.publications.application.messages.queries.GetPostsByOwnerId;
 import com.upc.uroomsapi.publications.infrastructure.persistence.repositories.PostRepository;
+import com.upc.uroomsapi.users.infrastructure.persistence.entities.Owner;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,11 @@ public class GetPostsByOwnerIdHandler {
     private PostRepository postRepository;
 
     public List<PostResponse> execute(GetPostsByOwnerId query) {
-        var postList = postRepository.findByOwner(query.getOwnerId());
+        //set owner id
+        Owner owner = new Owner();
+        owner.setUserId(query.getOwnerId());
+
+        var postList = postRepository.findByOwner(owner);
 
         return postList.stream()
                 .map(post -> modelMapper.map(post, PostResponse.class)) //lambda que mapea cada item al dto (response)

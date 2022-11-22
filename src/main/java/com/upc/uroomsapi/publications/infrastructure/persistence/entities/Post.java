@@ -1,7 +1,7 @@
 package com.upc.uroomsapi.publications.infrastructure.persistence.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.upc.uroomsapi.publications.infrastructure.persistence.values.AddresValue;
+import com.upc.uroomsapi.publications.infrastructure.persistence.values.AddressValue;
 import com.upc.uroomsapi.users.infrastructure.persistence.entities.Owner;
 import com.upc.uroomsapi.publications.domain.aggregates.PropertyType;
 
@@ -20,7 +20,7 @@ public class Post {
     private float averageRating;
     private double pricePerMonth;
     @Embedded
-    private AddresValue propertyAddress;
+    private AddressValue propertyAddress;
     private String propertyDimensions;
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -87,10 +87,10 @@ public class Post {
         this.pricePerMonth = pricePerMonth;
     }
 
-    public AddresValue getPropertyAddress() {
+    public AddressValue getPropertyAddress() {
         return propertyAddress;
     }
-    public void setPropertyAddress(AddresValue propertyAddress) {
+    public void setPropertyAddress(AddressValue propertyAddress) {
         this.propertyAddress = propertyAddress;
     }
 
