@@ -1,6 +1,9 @@
 package com.upc.uroomsapi.publications.interfaces.rest;
 
 import com.upc.uroomsapi.publications.application.dtos.request.PostRequest;
+import com.upc.uroomsapi.publications.application.dtos.response.PostResponseV1;
+import com.upc.uroomsapi.publications.application.handlers.queries.GetPostByIdHandler;
+import com.upc.uroomsapi.publications.application.messages.queries.GetPostById;
 import com.upc.uroomsapi.shared.interfaces.rest.MessageResponse;
 import com.upc.uroomsapi.publications.application.dtos.response.PostResponse;
 import com.upc.uroomsapi.publications.application.handlers.queries.GetAllPostsHandler;
@@ -21,7 +24,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/post")
+@RequestMapping("/api/post")
 @CrossOrigin(origins = "*")
 @Tag(name = "Post")
 public class PostController {
@@ -34,11 +37,13 @@ public class PostController {
     @Autowired
     private GetPostsByOwnerIdHandler getPostsByOwnerIdHandler;
 
+    @Autowired
+    private GetPostByIdHandler getPostByIdHandler;
+
     //GET
     @Operation(summary = "Obtiene la lista de publicaciones creadas por los arrendadores")
     @GetMapping("/list")
     public ResponseEntity<List<PostResponse>> listPosts() {
-        //var posts = service.getAllPosts();
         var query = new GetAllPosts();
         var posts = getAllPostsHandler.execute(query);
         return new ResponseEntity<>(posts, HttpStatus.OK);
@@ -46,13 +51,24 @@ public class PostController {
 
     //GET
     @Operation(summary = "Obtiene la lista de publicaciones creadas por un arrendador de acuerdo a su Id")
-    @GetMapping("/list/{ownerId}")
+    @GetMapping("/list/owner/{ownerId}")
     public ResponseEntity<List<PostResponse>> listPostsByOwnerId(
             @PathVariable(value = "ownerId") Long ownerId
     ) {
         var query = new GetPostsByOwnerId(ownerId);
         var posts = getPostsByOwnerIdHandler.execute(query);
         return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    //GET
+    @Operation(summary = "Obtiene una publicación detallada por su Id")
+    @GetMapping("/list/post/{postId}")
+    public ResponseEntity<PostResponseV1> getPostById(
+            @PathVariable(value = "postId") Long postId
+    ) {
+        var query = new GetPostById(postId);
+        var post = getPostByIdHandler.execute(query);
+        return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
     //POST

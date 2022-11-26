@@ -1,7 +1,5 @@
 package com.upc.uroomsapi.users.interfaces.rest;
 
-import com.upc.uroomsapi.publications.application.messages.queries.GetAllPosts;
-import com.upc.uroomsapi.publications.application.messages.queries.GetPostsByOwnerId;
 import com.upc.uroomsapi.shared.interfaces.rest.MessageResponse;
 import com.upc.uroomsapi.users.application.dtos.request.OwnerRequest;
 import com.upc.uroomsapi.users.application.dtos.response.OwnerResponse;
@@ -24,7 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/owner")
+@RequestMapping("/api/owner")
 @CrossOrigin(origins = "*")
 @Tag(name = "Owner")
 public class OwnerController {
@@ -38,7 +36,7 @@ public class OwnerController {
     private GetOwnerByIdHandler getOwnerByIdHandler;
 
     //GET
-    @Operation(summary = "Obtiene la lista de arrendadores creados")
+    @Operation(summary = "Obtiene la lista de arrendadores registrados")
     @GetMapping("/list")
     public ResponseEntity<List<OwnerResponse>> listWorkspace() {
         var query = new GetAllOwners();

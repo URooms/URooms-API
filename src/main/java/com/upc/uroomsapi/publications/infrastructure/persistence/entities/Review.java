@@ -1,6 +1,6 @@
 package com.upc.uroomsapi.publications.infrastructure.persistence.entities;
 
-import com.upc.uroomsapi.users.infrastructure.persistence.entities.User;
+import com.upc.uroomsapi.users.infrastructure.persistence.entities.Student;
 
 import javax.persistence.*;
 
@@ -21,7 +21,7 @@ public class Review {
     //MUCHOS "reviews" van a estar en UN "estudiante"
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentId", nullable = false)
-    private User student;
+    private Student student;
 
     public Review() {}
 
@@ -53,10 +53,10 @@ public class Review {
         this.post = post;
     }
 
-    public User getStudent() {
+    public Student getStudent() {
         return student;
     }
-    public void setStudent(User student) {
+    public void setStudent(Student student) {
         this.student = student;
     }
 }

@@ -26,12 +26,11 @@ public class RegisterOwnerHandler {
 
         //react to event
         var event = new OwnerRegistered(
-                ownerCreated.toString(),
+                ownerCreated.getPersonalInfo().getFirstname() + ownerCreated.getPersonalInfo().getSurname(),
                 ownerCreated.getUserId()
         );
         new OwnerRegisteredHandler().handle(event);
 
         return ownerCreated;
     }
-
 }

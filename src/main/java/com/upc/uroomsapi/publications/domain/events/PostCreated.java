@@ -22,4 +22,12 @@ public class PostCreated {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "PostCreated{" +
+                "title='" + title + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
